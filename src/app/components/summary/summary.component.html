@@ -1,0 +1,45 @@
+<div class="main-container">
+  <div class="done-container">
+    <button class="done-button" (click)="goToHome()">Done</button>
+  </div>
+  <div class="left-column">
+    <!-- Card 1: Food + Comments -->
+    <div class="summary-card" id="order-card">
+      <div class="summary-header-row">
+        <h3>Table# {{tableNumber}}</h3>
+        <button (click)="printCard('order-card')">🖨️ Print This Card</button>
+      </div>
+      <ul>
+        <li *ngFor="let food of selectedFoods">
+          <div class="food-item">
+            <span>{{ food.quantity }} {{ food.name }}</span>
+            <div *ngIf="food.comment">
+              <span>&#123; {{ food.comment }} &#125;</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p class="timestamp">{{ timestamp }}</p>
+    </div>
+  </div>
+  
+  <div class="right-column">
+    <!-- Card 2: Quantity + Price -->
+    <div class="summary-card" id="receipt-card">
+      <div class="summary-header-row">
+        <h3>Receipt Table# {{tableNumber}}</h3>
+        <button (click)="printCard('receipt-card')">🖨️ Print This Card</button>
+      </div>
+      <ul>
+        <li *ngFor="let food of selectedFoods">
+          {{ food.quantity }} {{ food.name }} ${{ (food.quantity*food.price) }}
+        </li>
+      </ul>
+      <h4>Sub Total: $ {{subTotal}}</h4>
+      <h4>Tax: $ {{tax}}</h4>
+      <h4>Total: $ {{total}}</h4>
+      <p class="timestamp">{{ timestamp }}</p>
+    </div>
+  </div>
+  
+</div>

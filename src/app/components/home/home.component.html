@@ -1,0 +1,68 @@
+<div class="main-container">
+
+<div class="left-column">
+  <div class="filters-container">
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'All' }" (click)="setFilter('All')">All</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'Appetizer' }" (click)="setFilter('Appetizer')">Appetizers</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'Soup' }" (click)="setFilter('Soup')">Soups</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'RiceDish' }" (click)="setFilter('RiceDish')">RiceDishs</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'Salad' }" (click)="setFilter('Salad')">Salads</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'StirFryNoodle' }" (click)="setFilter('StirFryNoodle')">StirFryNoodles</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'Entree' }" (click)="setFilter('Entree')">Entrees</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'Dessert' }" (click)="setFilter('Dessert')">Desserts</button>
+    <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'AddOn' }" (click)="setFilter('AddOn')">AddOn</button>
+  </div>
+
+  <div class="food-cards">
+      <div class="food-card" *ngFor="let food of filteredFoods">
+        <app-food-card [food]="food" (toggleSelect)="onToggleSelect(food)"></app-food-card>
+      </div>
+  </div>
+</div>
+
+<div class="right-column">
+    <div class="summary-header-row">
+      <h2>Order Summary</h2>
+      <div class="table-number-input">
+        <label for="tableInput">Table Number:</label>
+        <input id="tableInput" type="text" [(ngModel)]="tableNumber" />
+      </div>
+    </div>
+    <div class="selected-container" *ngIf="selectedFoods.length > 0; else noSelection">
+      <table>
+        <tr>
+          <th>Qty</th>
+          <th>Food</th>
+          <th>Price</th>
+          <th>Comment</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let food of selectedFoods">
+          <td>{{ food.quantity }}</td>
+          <td>{{ food.name }}</td>
+          <td>{{ (food.quantity*food.price) }}</td>
+          <td>
+            {{ food.comment }}
+            <br>
+            <input
+              type="text"
+              [(ngModel)]="comment"
+            />
+            <button (click)="addComment(food)">Comment</button>
+          </td>
+          <td>
+            <button class="butt" (click)="add(food)">+</button>
+            <button class="butt" (click)="subtract(food)">-</button>
+            <button class="butt" (click)="removeFood(food)">X</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <ng-template #noSelection>
+      <p>No food items selected.</p>
+    </ng-template>
+    
+    <button class="go-to-summary-btn" (click)="goToSummary()">Send</button>
+  </div>
+
+</div>

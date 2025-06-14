@@ -1,0 +1,217 @@
+/* Main container for the row layout */
+.main-container {
+  background-color: #f8f9fa;
+  display: flex;
+  gap: 20px; /* Space between columns */
+  flex-wrap: wrap; /* Allow columns to wrap on small screens */
+  overflow: hidden;  /* Prevents overflow in the main container */
+}
+
+body {
+  overflow-y: auto; /* Allow body to scroll if content overflows */
+  max-height: 100vh; /* Ensure the entire page fits within the viewport */
+}
+
+.left-column {
+  flex: 3;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-height: 80vh;  /* Limit the height of the right column */
+  overflow-y: auto;  /* Allow vertical scrolling */
+  padding-bottom: 100px;
+}
+
+/* The flex between left and right column is weighted calculation SO 1-1 is 5050, 3-2 is 6040 */
+.right-column {
+  flex: 2;
+  min-width: 300px;
+  background-color: #fdfdfd; /* subtle background to separate */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* soft shadow for depth */
+  max-height: 80vh;  /* Limit the height of the right column */
+  overflow-y: auto;  /* Allow vertical scrolling */
+  padding-bottom: 300px;
+}
+
+.food-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* space between cards */
+}
+
+.food-card {
+  flex: 0 1 calc(15% - 10px); /* roughly 4 cards per row with gap */
+  background-color: #ecfff4;
+  padding: 1px;
+  border-radius: 1px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.filter-button:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.filter-button.active {
+  background-color: #007BFF;
+  color: white;
+}
+
+/* Styles for the selected food table */
+.selected-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  width: 100%; /* Ensure it takes the full width */
+  padding-left: 0; /* Remove any unnecessary left padding */
+}
+
+/* Adjust padding for specific columns */
+th, td {
+  padding: 8px 10px; /* Reduced padding for all columns */
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 14px;
+}
+
+/* Specific adjustments for the columns */
+th:nth-child(1), td:nth-child(1) {
+  padding-left: 1px;  /* Less padding for Quantity column */
+  padding-right: 1px; /* Less padding for Quantity column */
+}
+
+th:nth-child(2), td:nth-child(2) {
+  padding-left: 1px;  /* Less padding for Food column */
+  padding-right: 1px; /* Less padding for Food column */
+}
+
+th:nth-child(3), td:nth-child(3) {
+  padding-left: 1px;  /* Less padding for Price column */
+  padding-right: 1px; /* Less padding for Price column */
+}
+
+/* Specific adjustments for the Comment column */
+th:nth-child(4), td:nth-child(4) {
+  padding-left: 1px;  /* More padding for the Comment column */
+  padding-right: 1px; /* More padding for the Comment column */
+}
+
+/* Ensure table and button/heading align */
+.selected-container h2,
+.selected-container button {
+  margin-left: 0; /* Ensure there’s no margin to the left */
+}
+
+/* Comment input and button */
+td input[type="text"] {
+  width: 50%;  /* Narrow the comment input */
+  padding: 4px 6px;  /* Reduced padding in the comment input */
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;  /* Keep the font size same */
+}
+
+.butt {
+  display: inline-block;
+  width: 50px;          /* Force all buttons to the same width */
+  height: 36px;         /* Optional: same height for vertical alignment */
+  font-size: 16px;
+  padding: 4px 0;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  transition: background-color 0.2s ease;
+}
+
+.butt:hover {
+  background-color: #0056b3;
+}
+
+.butt:last-child {
+  background-color: #dc3545;
+}
+
+.butt:last-child:hover {
+  background-color: #b02a37;
+}
+
+
+/* Style for the "Go to Summary" button */
+.go-to-summary-btn {
+  padding: 12px 24px; /* Increase padding for a larger, more clickable button */
+  font-size: 16px; /* Make text slightly larger */
+  font-weight: 600;
+  border: none;
+  border-radius: 30px; /* Rounded corners for a modern look */
+  background: linear-gradient(135deg, #007bff, #00b4d8); /* Gradient background */
+  color: white; /* Text color */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  text-transform: uppercase; /* Uppercase text for emphasis */
+  margin-top: 20px; /* Add top margin for space between the table and button */
+}
+
+.go-to-summary-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #0099cc); /* Darker gradient on hover */
+  transform: translateY(-3px); /* Slight lift on hover for 3D effect */
+}
+
+.go-to-summary-btn:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.6); /* Add focus glow effect */
+}
+
+.table-number-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.table-number-input input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 120px;
+}
+
+.summary-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  margin-bottom: 16px;
+}

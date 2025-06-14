@@ -1,0 +1,17 @@
+.card {
+  width: 150px;
+  /* margin: 10px; */
+  padding: 23px;
+  border: 1px solid rgb(215, 254, 225);
+  /* border-radius: 8px; */
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+.card.selected {
+  border-color: green;
+  background-color: #e0ffe0;
+}

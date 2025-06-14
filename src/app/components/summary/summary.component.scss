@@ -1,0 +1,121 @@
+/* Main container for the row layout */
+.main-container {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Reduce gap between columns */
+    padding: 30px 15px; /* Decrease padding */
+    max-width: 1100px; /* Reduce max-width for a more compact container */
+    margin: 0 auto;
+    align-items: stretch;
+    /* height: 100%; */
+    max-height: 100vh;     /* Limit height to the viewport */
+    overflow-y: auto;      /* Enable vertical scroll */
+    padding-bottom: 300px;  /* Add space for floating buttons if needed */   
+}
+
+/* Set height for both columns to ensure they match */
+.left-column,
+.right-column {
+    flex: 1;
+    min-width: 280px; /* Reduce the min-width for more compact layout */
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    height: 100%;
+}
+
+/* Summary card inside columns, with consistent height */
+.summary-card {
+    flex: 1;
+    min-height: 280px; /* Decrease the height of the cards */
+    background-color: #ffffff;
+    padding: 15px; /* Reduce card padding */
+    border-radius: 10px; /* Slightly smaller border radius */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08); /* Slightly less shadow for a compact look */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Button styling */
+button {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+    align-self: center; /* prevent full width in flex */
+    width: fit-content;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.done-container {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    margin-top: 7px;
+}
+
+.done-button {
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.done-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+
+h4 { margin: 0; }
+
+
+.timestamp {
+  font-size: 14px;
+  color: #666;
+  text-align: right;
+  margin-top: 10px;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #555;
+}
+
+.food-item {
+  display: flex;
+  flex-direction: column;  /* Stack the quantity, name, and comment vertically */
+  gap: 5px;  /* Space between quantity/name and comment */
+}
+
+.summary-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 20px;
+  flex-wrap: wrap; /* Optional: allows clean stacking on small screens */
+}
