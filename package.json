@@ -18,10 +18,12 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@awesome-cordova-plugins/android-permissions": "^8.0.2",
     "@capacitor/android": "^6.2.1",
     "@capacitor/cli": "^6.0.0",
     "@capacitor/core": "^6.0.0",
     "@kduma-autoid/capacitor-bluetooth-printer": "^0.2.1",
+    "cordova-plugin-android-permissions": "^1.1.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
