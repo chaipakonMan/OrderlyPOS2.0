@@ -64,6 +64,7 @@ button:hover {
 .done-container {
     width: 100%;
     display: flex;
+    gap: 10px; /* space between buttons */
     justify-content: right;
     margin-top: 7px;
 }

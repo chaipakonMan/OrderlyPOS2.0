@@ -30,17 +30,13 @@ export class SummaryComponent {
     for (let i = 0; i < this.selectedFoods.length; i++) {
       this.subTotal = this.subTotal + (this.selectedFoods[i].quantity * this.selectedFoods[i].price);
     }
-    this.tax = this.roundToTwo(this.subTotal*0.118);
+    this.tax = (this.subTotal*0.118);
     this.total = this.subTotal + this.tax;
     const now = new Date();
     this.timestamp = now.toLocaleString();
   }
-  
-  roundToTwo(num: number): number {
-    return Math.round((num + Number.EPSILON) * 100) / 100;
-  }
 
-  async printCard(cardId: string) {
+  async printAll() {
     const hasPermission = await this.ensureBluetoothPermissions();
     if (hasPermission) {
 
@@ -57,6 +53,30 @@ export class SummaryComponent {
         await BluetoothPrinter.print({ data: receipt });
         await BluetoothPrinter.disconnect();
         }
+    }
+
+  }
+
+  async printCard(cardId: string) {
+    const hasPermission = await this.ensureBluetoothPermissions();
+    if (hasPermission) {
+
+      if(cardId === "order-card"){
+        var order = this.generateOrderText();
+        if (await this.safeConnect('0C:25:76:6A:EE:61')) {
+          await BluetoothPrinter.print({ data: order });
+          await BluetoothPrinter.disconnect();
+        }
+      }
+
+      if(cardId === "receipt-card"){
+        var receipt = this.generateReceiptText();
+        if (await this.safeConnect('0C:25:76:6A:EC:E8')) {
+        await BluetoothPrinter.print({ data: receipt });
+        await BluetoothPrinter.disconnect();
+        }
+      }
+
     }
 
   }
@@ -142,17 +162,20 @@ export class SummaryComponent {
     nameLines.forEach((line: string, index: number) => {
       if (index === nameLines.length - 1) {
         // Last line → add quantity
-        order += `${line.padEnd(18)}${qty}\n\n`;
+        // Add comment if present
+        if (comment && comment.length > 1) {
+          order += `${line.padEnd(18)}${qty}\n`;
+          order += `{ ${comment} }\n\n`;
+        }else{
+          order += `${line.padEnd(18)}${qty}\n\n`;
+        }
+
       } else {
         // Other lines → just name
         order += `${line}\n`;
       }
     });
 
-    // Add comment if present
-    if (comment && comment.length > 1) {
-      order += `{ ${comment} }\n`;
-    }
   });
 
     order += '-----------------------------\n';
