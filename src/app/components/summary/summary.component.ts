@@ -43,30 +43,21 @@ export class SummaryComponent {
   async printCard(cardId: string) {
     const hasPermission = await this.ensureBluetoothPermissions();
     if (hasPermission) {
-      if(cardId === "order-card"){
-        console.log("order!");
-        await BluetoothPrinter.connect({ address: ':0C:25:76:6A:EC:E8' });
-        await BluetoothPrinter.print({ data: 'Hello, Order!' });
-        await BluetoothPrinter.disconnect();
-      }
+        var order = this.generateOrderText();
+        if (await this.safeConnect('0C:25:76:6A:EE:61')) {
+          await BluetoothPrinter.print({ data: order });
+          await BluetoothPrinter.disconnect();
+        }
 
-      if(cardId === "receipt-card"){
-        console.log("receipt!");
-        await BluetoothPrinter.connect({ address: ':0C:25:76:6A:EC:E8' });
-        await BluetoothPrinter.print({ data: 'Hello, Receipt!' });
-        await BluetoothPrinter.disconnect();
-      }
+        await this.sleep(2000); // wait just a bit
 
-      // TODO refactor this method, just set up the print content and address in the if.
-      // and print job start here with using text content.
-      // example here.
-      var content = 'Store Receipt\n\nITEMS\n\n'
-          content += 'Store Order\n\nITEMS\n\n';
-
-        await BluetoothPrinter.connect({ address: ':0C:25:76:6A:EC:E8' });
-        await BluetoothPrinter.print({ data: content });
+        var receipt = this.generateReceiptText();
+        if (await this.safeConnect('0C:25:76:6A:EC:E8')) {
+        await BluetoothPrinter.print({ data: receipt });
         await BluetoothPrinter.disconnect();
+        }
     }
+
   }
 
   goToHome() {
@@ -93,6 +84,68 @@ export class SummaryComponent {
 
     return true;
   }
+
+  generateReceiptText(): string {
+    let receipt = '\n';
+    receipt += '         City Corner 2\n';
+    receipt += `Table: ${this.tableNumber}\n`;
+    receipt += '-----------------------------\n';
+    receipt += 'Item         Qty  Price  Total\n';
+    receipt += '-----------------------------\n';
+
+    this.selectedFoods.forEach((item: any) => {
+      const name = (item.name || '').padEnd(12).slice(0, 12);
+      const qty = item.quantity.toString().padStart(3);
+      const price = item.price.toFixed(2).padStart(6);
+      const total = (item.quantity * item.price).toFixed(2).padStart(7);
+      receipt += `${name}${qty} ${price} ${total}\n`;
+    });
+
+    receipt += '-----------------------------\n';
+    receipt += `Subtotal:               ${this.subTotal.toFixed(2)}\n`;
+    receipt += `Tax (11.8%):            ${this.tax.toFixed(2)}\n`;
+    receipt += `TOTAL:                $${this.total.toFixed(2)}\n`;
+    receipt += '-----------------------------\n';
+    receipt += '    Thank you for dining!\n';
+    receipt += `    ${this.timestamp}\n\n\n\n`;
+
+    return receipt;
+  }
+
+  generateOrderText(): string {
+    let order = '\n\n\n';
+    order += '       City Corner Kitchen\n\n';
+    order += '---------------------------\n';
+
+    this.selectedFoods.forEach((item: any) => {
+      const name = (item.name || '').padEnd(18).slice(0, 18); // trim long names
+      const qty = `x${item.quantity}`;
+      order += `${name}     ${qty}\n`;
+    });
+
+    order += '---------------------------\n';
+    order += `   ${this.timestamp}\n`;
+    order += `           Table: ${this.tableNumber}\n\n\n\n`;
+    return order;
+  }
+
+  async safeConnect(address: string, retries = 2): Promise<boolean> {
+    for (let i = 0; i < retries; i++) {
+      try {
+        await BluetoothPrinter.connect({ address });
+        return true;
+      } catch {
+        await this.sleep(1000); // wait then retry
+      }
+    }
+    return false;
+  }
+
+  async sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+
 
 
 }
