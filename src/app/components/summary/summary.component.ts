@@ -43,6 +43,7 @@ export class SummaryComponent {
   async printCard(cardId: string) {
     const hasPermission = await this.ensureBluetoothPermissions();
     if (hasPermission) {
+
         var order = this.generateOrderText();
         if (await this.safeConnect('0C:25:76:6A:EE:61')) {
           await BluetoothPrinter.print({ data: order });
@@ -59,7 +60,7 @@ export class SummaryComponent {
     }
 
   }
-
+  
   goToHome() {
     this.router.navigate(['/']);
   }
@@ -95,11 +96,22 @@ export class SummaryComponent {
     receipt += '-----------------------------\n';
 
     this.selectedFoods.forEach((item: any) => {
-      const name = (item.name || '').padEnd(12).slice(0, 12);
-      const qty = item.quantity.toString().padStart(3);
-      const price = item.price.toFixed(2).padStart(6);
-      const total = (item.quantity * item.price).toFixed(2).padStart(7);
-      receipt += `${name}${qty} ${price} ${total}\n`;
+    const name = item.name || '';
+    const qty = item.quantity.toString().padStart(3);
+    const price = item.price.toFixed(2).padStart(6);
+    const total = (item.quantity * item.price).toFixed(2).padStart(7);
+
+    const nameLines = this.wrapText(name, 12);
+
+    nameLines.forEach((line: string, index: number) => {
+        if (index === nameLines.length - 1) {
+          // Last line → include numbers
+          receipt += `${line.padEnd(12)}${qty} ${price} ${total}\n\n`;
+        } else {
+          // Intermediate lines → name only
+          receipt += `${line}\n`;
+        }
+      });
     });
 
     receipt += '-----------------------------\n';
@@ -119,15 +131,29 @@ export class SummaryComponent {
     order += '        City Corner 2\n\n';
     order += '-----------------------------\n';
 
-    this.selectedFoods.forEach((item: any) => {
-      const name = (item.name || '').padEnd(18).slice(0, 18); // trim long names
-      const qty = `x ${item.quantity}`;
-      const comment = item.comment;
-      order += `${name}     ${qty}\n`;
-      if (comment && comment.length > 1){
-        order += `{ ${comment} }\n`;
+      this.selectedFoods.forEach((item: any) => {
+    const name = item.name || '';
+    const qty = `x ${item.quantity}`;
+    const comment = item.comment;
+
+    // Wrap name in chunks of 24 (or whatever width fits your printer nicely)
+    const nameLines = this.wrapText(name, 18);
+
+    nameLines.forEach((line: string, index: number) => {
+      if (index === nameLines.length - 1) {
+        // Last line → add quantity
+        order += `${line.padEnd(18)}${qty}\n\n`;
+      } else {
+        // Other lines → just name
+        order += `${line}\n`;
       }
     });
+
+    // Add comment if present
+    if (comment && comment.length > 1) {
+      order += `{ ${comment} }\n`;
+    }
+  });
 
     order += '-----------------------------\n';
     order += `   ${this.timestamp}\n`;
@@ -152,7 +178,25 @@ export class SummaryComponent {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  wrapText(text: string, maxWidth: number): string[] {
+    const words = text.split(' ');
+    const lines: string[] = [];
+    let currentLine = '';
 
+    for (const word of words) {
+      if ((currentLine + word).length <= maxWidth) {
+        currentLine += (currentLine ? ' ' : '') + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
 
+    if (currentLine) {
+      lines.push(currentLine);
+    }
+
+    return lines;
+  }
 
 }
