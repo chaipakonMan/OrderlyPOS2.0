@@ -156,7 +156,8 @@ export class HomeComponent {
     { name: 'Extra Vegetable', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
     { name: 'Extra Rice', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
     { name: 'Extra Noodle', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
-    { name: 'Extra Sauce', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""}
+    { name: 'Extra Sauce', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
+    { name: 'Fried Egg', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""}
   ];
 
   constructor(private router: Router) {}
@@ -218,7 +219,7 @@ export class HomeComponent {
     if (this.selectedCategory === 'All') return this.foods;
     return this.foods.filter(food => food.category === this.selectedCategory);
   }
-  tableNumber: string = '';
+  tableNumber: string = '0';
   goToSummary() {
     this.router.navigate(['/summary'], {
       state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}

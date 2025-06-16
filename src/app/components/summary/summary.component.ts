@@ -49,7 +49,7 @@ export class SummaryComponent {
           await BluetoothPrinter.disconnect();
         }
 
-        await this.sleep(2000); // wait just a bit
+        await this.sleep(3000); // wait just a bit
 
         var receipt = this.generateReceiptText();
         if (await this.safeConnect('0C:25:76:6A:EC:E8')) {
@@ -86,8 +86,9 @@ export class SummaryComponent {
   }
 
   generateReceiptText(): string {
-    let receipt = '\n';
-    receipt += '         City Corner 2\n';
+    let receipt = '';
+    receipt += '\x1D\x21\x01'; 
+    receipt += '         City Corner 2\n\n';
     receipt += `Table: ${this.tableNumber}\n`;
     receipt += '-----------------------------\n';
     receipt += 'Item         Qty  Price  Total\n';
@@ -106,30 +107,36 @@ export class SummaryComponent {
     receipt += `Tax (11.8%):            ${this.tax.toFixed(2)}\n`;
     receipt += `TOTAL:                $${this.total.toFixed(2)}\n`;
     receipt += '-----------------------------\n';
-    receipt += '    Thank you for dining!\n';
+    receipt += '    Thank you for dining!\n\n';
     receipt += `    ${this.timestamp}\n\n\n\n`;
 
     return receipt;
   }
 
   generateOrderText(): string {
-    let order = '\n\n\n';
-    order += '       City Corner Kitchen\n\n';
-    order += '---------------------------\n';
+    let order = '\n';
+    order += '\x1D\x21\x01'; 
+    order += '        City Corner 2\n\n';
+    order += '-----------------------------\n';
 
     this.selectedFoods.forEach((item: any) => {
       const name = (item.name || '').padEnd(18).slice(0, 18); // trim long names
-      const qty = `x${item.quantity}`;
+      const qty = `x ${item.quantity}`;
+      const comment = item.comment;
       order += `${name}     ${qty}\n`;
+      if (comment && comment.length > 1){
+        order += `{ ${comment} }\n`;
+      }
     });
 
-    order += '---------------------------\n';
+    order += '-----------------------------\n';
     order += `   ${this.timestamp}\n`;
+    order += '\n'
     order += `           Table: ${this.tableNumber}\n\n\n\n`;
     return order;
   }
 
-  async safeConnect(address: string, retries = 2): Promise<boolean> {
+  async safeConnect(address: string, retries = 3): Promise<boolean> {
     for (let i = 0; i < retries; i++) {
       try {
         await BluetoothPrinter.connect({ address });
