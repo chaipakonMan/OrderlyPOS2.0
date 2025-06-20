@@ -147,7 +147,8 @@ export class SummaryComponent {
 
   generateOrderText(): string {
     let order = '\n';
-    order += '\x1D\x21\x01'; 
+    order += '\x1B\x45\x01'; //bold
+    order += '\x1D\x21\x01'; //height
     order += '        City Corner 2\n\n';
     order += '-----------------------------\n';
 
