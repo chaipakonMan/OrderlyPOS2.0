@@ -152,16 +152,19 @@ export class HomeComponent {
     { name: 'Pad Woon Sen Shrimp', selected: false, category: 'Entree', price: 15, quantity: 1, comment: "" },
     { name: 'Tamarine Shrimp', selected: false, category: 'Entree', price: 15, quantity: 1, comment: "" },
     { name: 'Mango Sticky Rice', selected: false , category: 'Dessert', price: 8.99, quantity: 1, comment: ""},
-    { name: 'Extra Meat', selected: false , category: 'AddOn', price: 3, quantity: 1, comment: ""},
-    { name: 'Extra Vegetable', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
+    { name: 'Extra Meat', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
+    { name: 'Extra Vegetable', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
+    { name: 'Extra Broccoli', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
+    { name: 'Extra Eggplant', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
     { name: 'Extra Rice', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
     { name: 'Extra Noodle', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
     { name: 'Extra Sauce', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
-    { name: 'Fried Egg', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""}
+    { name: 'Fried Egg', selected: false , category: 'AddOn', price: 1.5, quantity: 1, comment: ""},
+    { name: 'Side Fried Rice', selected: false , category: 'AddOn', price: 5, quantity: 1, comment: ""}
   ];
 
   constructor(private router: Router) {}
-  
+
   comment: string = "";
 
   selectedFoods: any[] = [];
@@ -178,7 +181,7 @@ export class HomeComponent {
       this.selectedFoods.push(food);
     }
   }
-  
+
   addComment(food: any){
     console.log(this.comment);
     console.log(food.name);
@@ -219,7 +222,9 @@ export class HomeComponent {
     if (this.selectedCategory === 'All') return this.foods;
     return this.foods.filter(food => food.category === this.selectedCategory);
   }
+
   tableNumber: string = '0';
+
   goToSummary() {
     this.router.navigate(['/summary'], {
       state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
