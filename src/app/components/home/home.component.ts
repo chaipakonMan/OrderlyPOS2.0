@@ -168,7 +168,13 @@ export class HomeComponent {
     { name: 'Large Tea', selected: false , category: 'Drink', price: 8, quantity: 1, comment: ""},
     { name: 'Tapioca', selected: false , category: 'Drink', price: 1, quantity: 1, comment: ""},
     { name: 'Soda', selected: false , category: 'Drink', price: 2.5, quantity: 1, comment: ""},
-    { name: 'Hot Tea', selected: false , category: 'Drink', price: 2.5, quantity: 1, comment: ""}
+    { name: 'Hot Tea', selected: false , category: 'Drink', price: 2.5, quantity: 1, comment: ""},
+    { name: 'HEINEKEN', selected: false , category: 'Beer', price: 5, quantity: 1, comment: ""},
+    { name: 'MILTER LITE', selected: false , category: 'Beer', price: 5, quantity: 1, comment: ""},
+    { name: 'CORONA', selected: false , category: 'Beer', price: 5, quantity: 1, comment: ""},
+    { name: 'SAMUEL ADAMS', selected: false , category: 'Beer', price: 5, quantity: 1, comment: ""},
+    { name: 'CHANG', selected: false , category: 'Beer', price: 6, quantity: 1, comment: ""},  
+    { name: 'SINGHA', selected: false , category: 'Beer', price: 6, quantity: 1, comment: ""}
 
   ];
 
