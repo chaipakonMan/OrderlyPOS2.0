@@ -234,4 +234,10 @@ export class SummaryComponent {
     });
   }
 
+  goBack() {
+        this.router.navigate(['/'], {
+      state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
+    });
+  }
+
 }

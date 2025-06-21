@@ -259,6 +259,9 @@ export class HomeComponent {
     let savedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
     savedOrders.push(order);
     localStorage.setItem('orders', JSON.stringify(savedOrders));
+    // reset the home in memory
+    this.tableNumber = '0';
+    this.selectedFoods = [];
   }
 
   goToSave() {

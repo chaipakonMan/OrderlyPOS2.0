@@ -61,12 +61,19 @@ button:hover {
     background-color: #0056b3;
 }
 
+
 .done-container {
-    width: 100%;
-    display: flex;
-    gap: 10px; /* space between buttons */
-    justify-content: right;
-    margin-top: 7px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.left-buttons,
+.right-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 .done-button {

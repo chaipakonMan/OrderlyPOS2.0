@@ -54,3 +54,14 @@
   font-size: 17px;
   margin-bottom: 3px;
 }
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header-row h2 {
+  margin: 0;
+}
