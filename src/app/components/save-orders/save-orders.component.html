@@ -1,0 +1,25 @@
+<div class="saved-orders-container">
+  <h2>📦 Saved Orders</h2>
+
+  <div *ngIf="orders.length === 0" class="empty-state">
+    <p>No saved orders found.</p>
+    <button class="done-button" (click)="goToHome()">Home</button>
+  </div>
+
+  <div *ngFor="let order of orders; let i = index" class="order-card">
+    <h3>Table #{{ order.tableNumber }}</h3>
+
+    <ul class="item-list">
+      <li *ngFor="let item of order.selectedFoods">
+        {{ item.quantity }} x {{ item.name }}
+        <span *ngIf="item.comment"> - <em>{{ item.comment }}</em></span>
+      </li>
+    </ul>
+
+    <div class="order-actions">
+      <button (click)="loadForEdit(order)">✏️ Edit</button>
+      <button (click)="printOrder(order)">🖨️ Print</button>
+      <button (click)="deleteOrder(i)">🗑️ Delete</button>
+    </div>
+  </div>
+</div>

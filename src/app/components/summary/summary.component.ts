@@ -228,4 +228,10 @@ export class SummaryComponent {
     return lines;
   }
 
+  goToSave() {
+    this.router.navigate(['/save'], {
+      state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
+    });
+  }
+
 }

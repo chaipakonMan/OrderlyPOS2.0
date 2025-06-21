@@ -178,7 +178,11 @@ export class HomeComponent {
 
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    const nav = this.router.getCurrentNavigation();
+    this.tableNumber = nav?.extras?.state?.['tableNumber'] || '';
+    this.selectedFoods = nav?.extras?.state?.['selectedFoods'] || [];
+  }
 
   comment: string = "";
 
@@ -242,6 +246,23 @@ export class HomeComponent {
 
   goToSummary() {
     this.router.navigate(['/summary'], {
+      state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
+    });
+  }
+
+  saveOrder() {
+    const order = {
+      tableNumber: this.tableNumber,
+      selectedFoods: this.selectedFoods
+    };
+
+    let savedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+    savedOrders.push(order);
+    localStorage.setItem('orders', JSON.stringify(savedOrders));
+  }
+
+  goToSave() {
+    this.router.navigate(['/save'], {
       state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
     });
   }
