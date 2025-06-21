@@ -1,9 +1,11 @@
 <div class="saved-orders-container">
-  <h2>📦 Saved Orders</h2>
+  <div>
+    <h2>📦 Saved Orders</h2>
+    <button class="done-button" (click)="goToHome()">Home</button>
+  </div>
 
   <div *ngIf="orders.length === 0" class="empty-state">
     <p>No saved orders found.</p>
-    <button class="done-button" (click)="goToHome()">Home</button>
   </div>
 
   <div *ngFor="let order of orders; let i = index" class="order-card">
@@ -17,9 +19,7 @@
     </ul>
 
     <div class="order-actions">
-      <button (click)="loadForEdit(order)">✏️ Edit</button>
-      <button (click)="printOrder(order)">🖨️ Print</button>
-      <button (click)="deleteOrder(i)">🗑️ Delete</button>
+      <button (click)="loadForEdit(order, i)">✏️ Edit</button>
     </div>
   </div>
 </div>

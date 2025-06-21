@@ -20,8 +20,9 @@ export class SaveOrdersComponent {
     console.log(this.orders);
   }
 
-  loadForEdit(order: any) {
+  loadForEdit(order: any, index: number) {
     this.router.navigate(['/'], { state: order });
+    this.deleteOrder(index);
   }
 
   printOrder(order: any) {
