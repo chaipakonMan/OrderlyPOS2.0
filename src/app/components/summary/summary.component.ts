@@ -152,7 +152,12 @@ export class SummaryComponent {
     order += '        City Corner 2\n\n';
     order += '-----------------------------\n';
 
-      this.selectedFoods.forEach((item: any) => {
+    this.selectedFoods.forEach((item: any) => {
+
+    if (item.category === 'Drink' || item.category === 'Beer') {
+      return; // Skip drinks and beers
+    }
+
     const name = item.name || '';
     const qty = `x ${item.quantity}`;
     const comment = item.comment;
