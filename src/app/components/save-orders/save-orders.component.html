@@ -18,32 +18,32 @@
       </li>
     </ul>
 
-  <div class="order-actions">
-    <button (click)="loadForEdit(order, i)">✏️ Edit</button>
-    <button (click)="startSplit(i)">💸 Split</button>
-  </div>
+    <div class="order-actions">
+      <button (click)="loadForEdit(order, i)">✏️ Edit</button>
+      <button (click)="startSplit(i)" [disabled]="order.selectedFoods.length <= 1">💸 Split</button>
+    </div>
 
     <!-- This block is only visible if splitModeIndex === i -->
-  <div *ngIf="splitModeIndex === i" class="split-section">
-    <h4>Select items to split:</h4>
+    <div *ngIf="splitModeIndex === i" class="split-section">
+      <h4>Select items to split:</h4>
 
-      <label>
-        New Table Number:
-        <input type="text" [(ngModel)]="splitTableNumber" />
-      </label>
-
-    <ul class="item-list">
-      <li *ngFor="let item of order.selectedFoods; let j = index">
         <label>
-          <input type="checkbox" [(ngModel)]="splitSelections[j]" />
-          {{ item.quantity }} x {{ item.name }}
-          <span *ngIf="item.comment"> - <em>{{ item.comment }}</em></span>
+          New Table Number:
+          <input type="text" [(ngModel)]="splitTableNumber" />
         </label>
-      </li>
-    </ul>
-    <button (click)="saveSplit(order, i)">Split</button>
-    <button (click)="cancelSplit()">Cancel</button>
-  </div>
+
+      <ul class="item-list">
+        <li *ngFor="let item of order.selectedFoods; let j = index">
+          <label>
+            <input type="checkbox" [(ngModel)]="splitSelections[j]" />
+            {{ item.quantity }} x {{ item.name }}
+            <span *ngIf="item.comment"> - <em>{{ item.comment }}</em></span>
+          </label>
+        </li>
+      </ul>
+      <button (click)="saveSplit(order, i)">Split</button>
+      <button (click)="cancelSplit()">Cancel</button>
+    </div>
 
   </div>
 

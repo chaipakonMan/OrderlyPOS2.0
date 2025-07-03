@@ -59,12 +59,18 @@ export class SaveOrdersComponent {
 
     if (selectedFoods.length === 0) return;
 
+    // 1. Create new split order with selected items
     const newOrder = {
       tableNumber: this.splitTableNumber,
       selectedFoods: selectedFoods
     };
-
     this.orders.push(newOrder);
+
+    // 2. Remove split items from original order
+    const remainingItems = originalOrder.selectedFoods.filter((_: any, i: number) => !this.splitSelections[i]);
+    this.orders[index].selectedFoods = remainingItems;
+
+    // 3. Persist the updated orders array to localStorage
     localStorage.setItem('orders', JSON.stringify(this.orders));
 
     this.cancelSplit(); // reset
