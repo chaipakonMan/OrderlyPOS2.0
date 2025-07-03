@@ -65,3 +65,53 @@
 .header-row h2 {
   margin: 0;
 }
+
+.item-list input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.order-actions button {
+  margin-top: 4px;
+}
+
+/* Split section styles */
+.split-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #d6eaff;
+  border-radius: 8px;
+  background-color: #e2f1ff;
+}
+
+.split-section ul {
+  list-style-type: none;
+}
+
+.split-section button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.split-section button:first-of-type {
+  background-color: #77c069;
+  color: white;
+}
+
+.split-section button:first-of-type:hover {
+  background-color: #77c069;
+}
+
+.split-section button:last-of-type {
+  background-color: #d15360;
+  color: white;
+}
+
+.split-section button:last-of-type:hover {
+  background-color: #d15360;
+}

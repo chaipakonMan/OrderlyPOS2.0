@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-save-orders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './save-orders.component.html',
   styleUrls: ['./save-orders.component.scss']
 })
@@ -37,4 +38,38 @@ export class SaveOrdersComponent {
   goToHome() {
     this.router.navigate(['/']);
   }
+
+  splitModeIndex: number | null = null;
+  splitSelections: boolean[] = [];
+
+  startSplit(index: number) {
+    this.splitModeIndex = index;
+    const order = this.orders[index];
+    this.splitSelections = order.selectedFoods.map(() => false);
+  }
+
+  cancelSplit() {
+    this.splitModeIndex = null;
+    this.splitSelections = [];
+    this.splitTableNumber = '0';
+  }
+
+  saveSplit(originalOrder: any, index: number) {
+    const selectedFoods = originalOrder.selectedFoods.filter((_: any, i: number) => this.splitSelections[i]);
+
+    if (selectedFoods.length === 0) return;
+
+    const newOrder = {
+      tableNumber: this.splitTableNumber,
+      selectedFoods: selectedFoods
+    };
+
+    this.orders.push(newOrder);
+    localStorage.setItem('orders', JSON.stringify(this.orders));
+
+    this.cancelSplit(); // reset
+  }
+
+  splitTableNumber: string = '0';
+
 }
