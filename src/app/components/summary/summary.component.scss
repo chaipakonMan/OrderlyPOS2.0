@@ -127,3 +127,8 @@ h3 {
   gap: 20px;
   flex-wrap: wrap; /* Optional: allows clean stacking on small screens */
 }
+
+.done-below {
+  justify-content: flex-end; /* right-align under receipt */
+  gap: 17px;
+}

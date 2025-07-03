@@ -158,6 +158,11 @@ export class SummaryComponent {
       return; // Skip drinks and beers
     }
 
+    if(item.category === 'AddOn' && item.name ==='Corkage fee'){
+      return; // Skip drinks and beers
+    }
+
+
     const name = item.name || '';
     const qty = `x ${item.quantity}`;
     const comment = item.comment;
