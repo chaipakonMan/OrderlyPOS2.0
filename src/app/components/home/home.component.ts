@@ -185,6 +185,10 @@ export class HomeComponent {
     this.selectedFoods = nav?.extras?.state?.['selectedFoods'] || [];
   }
 
+  ngOnInit() {
+    this.tableNumber = '0';
+  }
+
   comment: string = "";
 
   selectedFoods: any[] = [];
@@ -233,6 +237,7 @@ export class HomeComponent {
   }
 
   selectedCategory: string = 'All';
+  tableNumber: string = '0';
 
   setFilter(category: string) {
     this.selectedCategory = category;
@@ -242,8 +247,6 @@ export class HomeComponent {
     if (this.selectedCategory === 'All') return this.foods;
     return this.foods.filter(food => food.category === this.selectedCategory);
   }
-
-  tableNumber: string = '0';
 
   goToSummary() {
     this.router.navigate(['/summary'], {
