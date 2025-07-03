@@ -161,6 +161,7 @@ export class HomeComponent {
     { name: 'Extra Sauce', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
     { name: 'Fried Egg', selected: false , category: 'AddOn', price: 1.5, quantity: 1, comment: ""},
     { name: 'Side Fried Rice', selected: false , category: 'AddOn', price: 5, quantity: 1, comment: ""},
+    { name: 'Corkage fee', selected: false , category: 'AddOn', price: 5, quantity: 1, comment: ""},
     { name: 'Thai Iced Tea', selected: false , category: 'Drink', price: 4, quantity: 1, comment: ""},
     { name: 'Thai Iced Coffee', selected: false , category: 'Drink', price: 4, quantity: 1, comment: ""},
     { name: 'Thai Iced Green Tea', selected: false , category: 'Drink', price: 4, quantity: 1, comment: ""},
