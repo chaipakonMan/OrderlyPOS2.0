@@ -62,9 +62,13 @@
     </div>
     <ng-template #noSelection>
       <p>No food items selected.</p>
+      <button class="go-to-summary-btn" (click)="goToSave()">Tables</button>
     </ng-template>
+    <ng-container *ngIf="selectedFoods.length > 0">
+      <button class="go-to-summary-btn" (click)="goToSummary()">Send</button>
+      <button class="go-to-summary-btn" (click)="saveOrder()">Save</button>
+    </ng-container>
     
-    <button class="go-to-summary-btn" (click)="goToSummary()">Send</button>
   </div>
 
 </div>

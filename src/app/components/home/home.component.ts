@@ -179,7 +179,15 @@ export class HomeComponent {
 
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    const nav = this.router.getCurrentNavigation();
+    this.tableNumber = nav?.extras?.state?.['tableNumber'] || '';
+    this.selectedFoods = nav?.extras?.state?.['selectedFoods'] || [];
+  }
+
+  ngOnInit() {
+    this.tableNumber = '0';
+  }
 
   comment: string = "";
 
@@ -229,6 +237,7 @@ export class HomeComponent {
   }
 
   selectedCategory: string = 'All';
+  tableNumber: string = '0';
 
   setFilter(category: string) {
     this.selectedCategory = category;
@@ -239,10 +248,28 @@ export class HomeComponent {
     return this.foods.filter(food => food.category === this.selectedCategory);
   }
 
-  tableNumber: string = '0';
-
   goToSummary() {
     this.router.navigate(['/summary'], {
+      state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
+    });
+  }
+
+  saveOrder() {
+    const order = {
+      tableNumber: this.tableNumber,
+      selectedFoods: this.selectedFoods
+    };
+
+    let savedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+    savedOrders.push(order);
+    localStorage.setItem('orders', JSON.stringify(savedOrders));
+    // reset the home in memory
+    this.tableNumber = '0';
+    this.selectedFoods = [];
+  }
+
+  goToSave() {
+    this.router.navigate(['/save'], {
       state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
     });
   }

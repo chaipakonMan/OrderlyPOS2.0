@@ -1,0 +1,117 @@
+.saved-orders-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.order-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.order-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.order-actions button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.done-button {
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.done-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.item-list {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-list li {
+  font-size: 17px;
+  margin-bottom: 3px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header-row h2 {
+  margin: 0;
+}
+
+.item-list input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.order-actions button {
+  margin-top: 4px;
+}
+
+/* Split section styles */
+.split-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #d6eaff;
+  border-radius: 8px;
+  background-color: #e2f1ff;
+}
+
+.split-section ul {
+  list-style-type: none;
+}
+
+.split-section button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.split-section button:first-of-type {
+  background-color: #77c069;
+  color: white;
+}
+
+.split-section button:first-of-type:hover {
+  background-color: #77c069;
+}
+
+.split-section button:last-of-type {
+  background-color: #d15360;
+  color: white;
+}
+
+.split-section button:last-of-type:hover {
+  background-color: #d15360;
+}

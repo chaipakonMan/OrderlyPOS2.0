@@ -1,8 +1,8 @@
 <div class="main-container">
   <div class="done-container">
-    <button class="done-button" (click)="printAll()">Print All</button>
-    <button class="done-button" (click)="goToHome()">Done</button>
+    <button class="done-button" (click)="goBack()">Back</button>
   </div>
+
   <div class="left-column">
     <!-- Card 1: Food + Comments -->
     <div class="summary-card" id="order-card">
@@ -42,5 +42,11 @@
       <p class="timestamp">{{ timestamp }}</p>
     </div>
   </div>
-  
+
+  <!-- Bottom-right floating buttons -->
+  <div class="done-container done-below">
+    <button class="done-button" (click)="printAll()">Print All</button>
+    <button class="done-button" (click)="goToHome()">Done</button>
+  </div>
+
 </div>

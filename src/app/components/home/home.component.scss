@@ -179,6 +179,7 @@ td input[type="text"] {
   transition: all 0.3s ease; /* Smooth transition for hover effects */
   text-transform: uppercase; /* Uppercase text for emphasis */
   margin-top: 20px; /* Add top margin for space between the table and button */
+  float: right;
 }
 
 .go-to-summary-btn:hover {

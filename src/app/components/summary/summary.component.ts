@@ -148,41 +148,46 @@ export class SummaryComponent {
   generateOrderText(): string {
     let order = '\n';
     order += '\x1B\x45\x01'; //bold
-    order += '\x1D\x21\x01'; //height
+    order += '\x1D\x21\x11'; // Increase both width and height (larger text)
     order += '        City Corner 2\n\n';
     order += '-----------------------------\n';
 
     this.selectedFoods.forEach((item: any) => {
 
-    if (item.category === 'Drink' || item.category === 'Beer') {
-      return; // Skip drinks and beers
-    }
-
-    const name = item.name || '';
-    const qty = `x ${item.quantity}`;
-    const comment = item.comment;
-
-    // Wrap name in chunks of 24 (or whatever width fits your printer nicely)
-    const nameLines = this.wrapText(name, 18);
-
-    nameLines.forEach((line: string, index: number) => {
-      if (index === nameLines.length - 1) {
-        // Last line → add quantity
-        // Add comment if present
-        if (comment && comment.length > 1) {
-          order += `${line.padEnd(18)}${qty}\n`;
-          order += `{ ${comment} }\n\n`;
-        }else{
-          order += `${line.padEnd(18)}${qty}\n\n`;
-        }
-
-      } else {
-        // Other lines → just name
-        order += `${line}\n`;
+      if (item.category === 'Drink' || item.category === 'Beer') {
+        return; // Skip drinks and beers
       }
-    });
 
-  });
+      if(item.category === 'AddOn' && item.name ==='Corkage fee'){
+        return; // Skip drinks and beers
+      }
+
+
+      const name = item.name || '';
+      const qty = `x ${item.quantity}`;
+      const comment = item.comment;
+
+      // Wrap name in chunks of 24 (or whatever width fits your printer nicely)
+      const nameLines = this.wrapText(name, 18);
+
+      nameLines.forEach((line: string, index: number) => {
+        if (index === nameLines.length - 1) {
+          // Last line → add quantity
+          // Add comment if present
+          if (comment && comment.length > 0) {
+            order += `${line.padEnd(18)}${qty}\n`;
+            order += `{ ${comment} }\n\n`;
+          }else{
+            order += `${line.padEnd(18)}${qty}\n\n`;
+          }
+
+        } else {
+          // Other lines → just name
+          order += `${line}\n`;
+        }
+      });
+
+    });
 
     order += '-----------------------------\n';
     order += `   ${this.timestamp}\n`;
@@ -226,6 +231,18 @@ export class SummaryComponent {
     }
 
     return lines;
+  }
+
+  goToSave() {
+    this.router.navigate(['/save'], {
+      state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
+    });
+  }
+
+  goBack() {
+        this.router.navigate(['/'], {
+      state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
+    });
   }
 
 }
