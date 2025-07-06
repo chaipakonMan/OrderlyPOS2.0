@@ -191,7 +191,9 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    this.tableNumber = '0';
+    if (!this.tableNumber || this.tableNumber.trim() === '') {
+      this.tableNumber = '0';
+    }
   }
 
   comment: string = "";
