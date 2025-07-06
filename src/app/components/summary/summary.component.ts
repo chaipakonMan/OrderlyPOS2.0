@@ -148,7 +148,7 @@ export class SummaryComponent {
   generateOrderText(): string {
     let order = '\n';
     order += '\x1B\x45\x01'; //bold
-    order += '\x1D\x21\x11'; // Increase both width and height (larger text)
+    order += '\x1D\x21\x01'; //height
     order += '        City Corner 2\n\n';
     order += '-----------------------------\n';
 
