@@ -37,26 +37,24 @@ export class SummaryComponent {
   }
 
   async printAll() {
+    
+    const hasPermission = await this.ensureBluetoothPermissions();
+    if (hasPermission) {
 
-    console.log(this.generateReceiptText());
+        var order = this.generateOrderText();
+        if (await this.safeConnect('0C:25:76:6A:EE:61')) {
+          await BluetoothPrinter.print({ data: order });
+          await BluetoothPrinter.disconnect();
+        }
 
-    // const hasPermission = await this.ensureBluetoothPermissions();
-    // if (hasPermission) {
+        await this.sleep(3000); // wait just a bit
 
-    //     var order = this.generateOrderText();
-    //     if (await this.safeConnect('0C:25:76:6A:EE:61')) {
-    //       await BluetoothPrinter.print({ data: order });
-    //       await BluetoothPrinter.disconnect();
-    //     }
-
-    //     await this.sleep(3000); // wait just a bit
-
-    //     var receipt = this.generateReceiptText();
-    //     if (await this.safeConnect('0C:25:76:6A:EC:E8')) {
-    //     await BluetoothPrinter.print({ data: receipt });
-    //     await BluetoothPrinter.disconnect();
-    //     }
-    // }
+        var receipt = this.generateReceiptText();
+        if (await this.safeConnect('0C:25:76:6A:EC:E8')) {
+        await BluetoothPrinter.print({ data: receipt });
+        await BluetoothPrinter.disconnect();
+        }
+    }
 
   }
 
