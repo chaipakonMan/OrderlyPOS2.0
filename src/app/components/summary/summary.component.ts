@@ -37,23 +37,26 @@ export class SummaryComponent {
   }
 
   async printAll() {
-    const hasPermission = await this.ensureBluetoothPermissions();
-    if (hasPermission) {
 
-        var order = this.generateOrderText();
-        if (await this.safeConnect('0C:25:76:6A:EE:61')) {
-          await BluetoothPrinter.print({ data: order });
-          await BluetoothPrinter.disconnect();
-        }
+    console.log(this.generateReceiptText());
 
-        await this.sleep(3000); // wait just a bit
+    // const hasPermission = await this.ensureBluetoothPermissions();
+    // if (hasPermission) {
 
-        var receipt = this.generateReceiptText();
-        if (await this.safeConnect('0C:25:76:6A:EC:E8')) {
-        await BluetoothPrinter.print({ data: receipt });
-        await BluetoothPrinter.disconnect();
-        }
-    }
+    //     var order = this.generateOrderText();
+    //     if (await this.safeConnect('0C:25:76:6A:EE:61')) {
+    //       await BluetoothPrinter.print({ data: order });
+    //       await BluetoothPrinter.disconnect();
+    //     }
+
+    //     await this.sleep(3000); // wait just a bit
+
+    //     var receipt = this.generateReceiptText();
+    //     if (await this.safeConnect('0C:25:76:6A:EC:E8')) {
+    //     await BluetoothPrinter.print({ data: receipt });
+    //     await BluetoothPrinter.disconnect();
+    //     }
+    // }
 
   }
 
@@ -115,7 +118,7 @@ export class SummaryComponent {
     receipt += 'Item         Qty  Price  Total\n';
     receipt += '-----------------------------\n';
 
-    this.selectedFoods.forEach((item: any) => {
+    this.selectedFoods.forEach((item: any, index: number) => {
     const name = item.name || '';
     const qty = item.quantity.toString().padStart(3);
     const price = item.price.toFixed(2).padStart(6);
@@ -127,7 +130,7 @@ export class SummaryComponent {
     nameLines.forEach((line: string, index: number) => {
         if (index === nameLines.length - 1) {
           // Last line → include numbers
-          receipt += `${line.padEnd(12)}${qty} ${price} ${total}\n\n`;
+          receipt += `${line.padEnd(12)}${qty} ${price} ${total}\n`;
         } else {
           // Intermediate lines → name only
           receipt += `${line}\n`;
@@ -141,7 +144,9 @@ export class SummaryComponent {
           receipt += `  ${line}\n`;
         });
       }
-      receipt += '\n'; // spacing between items
+      if (index !== this.selectedFoods.length - 1) {
+        receipt += '\n'; // only add spacing if not last item
+      }
     });
 
     receipt += '-----------------------------\n';
