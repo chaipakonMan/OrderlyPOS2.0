@@ -23,7 +23,7 @@ export class SummaryComponent {
   constructor(private router: Router, private androidPermissions: AndroidPermissions) {
     const nav = this.router.getCurrentNavigation();
     this.selectedFoods = nav?.extras?.state?.['selectedFoods'] || {};
-    this.tableNumber = nav?.extras?.state?.['tableNumber'] || {};
+    this.tableNumber = nav?.extras?.state?.['tableNumber'] || '';
   }
   
   ngOnInit(): void {
@@ -120,6 +120,7 @@ export class SummaryComponent {
     const qty = item.quantity.toString().padStart(3);
     const price = item.price.toFixed(2).padStart(6);
     const total = (item.quantity * item.price).toFixed(2).padStart(7);
+    const comment = item.comment?.trim();
 
     const nameLines = this.wrapText(name, 12);
 
@@ -132,6 +133,15 @@ export class SummaryComponent {
           receipt += `${line}\n`;
         }
       });
+
+      // Optional comment below item
+      if (comment && comment.length > 0) {
+        const commentLines = this.wrapText(`{ ${comment} }`, 29); // full-width comment
+        commentLines.forEach(line => {
+          receipt += `  ${line}\n`;
+        });
+      }
+      receipt += '\n'; // spacing between items
     });
 
     receipt += '-----------------------------\n';
