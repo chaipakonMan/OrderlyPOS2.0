@@ -155,6 +155,7 @@ export class HomeComponent {
     { name: 'Steamed Shrimp and Bean Thread', selected: false, category: 'Entree', price: 15.99, quantity: 1, comment: "" },
     { name: 'Preserved Duck Egg with Chicken', selected: false, category: 'Entree', price: 15.99, quantity: 1, comment: "" },
     { name: 'Preserved Duck Egg with Pork', selected: false, category: 'Entree', price: 15.99, quantity: 1, comment: "" },
+    { name: 'Fried Chicken Wings (Ginger Sauce)', selected: false, category: 'Entree', price: 15.99, quantity: 1, comment: "" },
     { name: 'Mango Sticky Rice', selected: false , category: 'Dessert', price: 8.99, quantity: 1, comment: ""},
     { name: 'Extra Meat', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
     { name: 'Extra Vegetable', selected: false , category: 'AddOn', price: 1, quantity: 1, comment: ""},
