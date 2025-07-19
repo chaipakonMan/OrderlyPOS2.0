@@ -78,4 +78,12 @@ export class SaveOrdersComponent {
 
   splitTableNumber: string = '0';
 
+  clearAllOrders() {
+    const confirmed = confirm('Are you sure you want to delete all saved orders?');
+    if (confirmed) {
+      this.orders = [];
+      localStorage.removeItem('orders');
+    }
+  }
+
 }

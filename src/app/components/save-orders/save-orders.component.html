@@ -1,6 +1,7 @@
 <div class="saved-orders-container">
   <div class="header-row">
     <h2>📦 Saved Orders</h2>
+    <button class="done-button" (click)="clearAllOrders()" [disabled]="orders.length === 0">ClearAll</button>
     <button class="done-button" (click)="goToHome()">Home</button>
   </div>
 
