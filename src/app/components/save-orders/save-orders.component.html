@@ -7,7 +7,7 @@
 
   <!-- Merge Mode Buttons -->
   <div class="merge-controls" *ngIf="!mergeMode && orders.length > 1">
-    <button (click)="startMerge()">🧩 Start Merge</button>
+    <button class="merge-button" (click)="startMerge()">🧩 Start Merge</button>
   </div>
   <div class="merge-controls" *ngIf="mergeMode">
     <label>
