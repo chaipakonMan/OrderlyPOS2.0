@@ -109,9 +109,6 @@ export class SaveOrdersComponent {
 
     if (selectedIndices.length < 2) return;
 
-    const confirmed = confirm('Are you sure you want to merge the selected orders?');
-    if (!confirmed) return;
-
     const selectedOrders = selectedIndices.map(index => this.orders[index]);
     const allItems = selectedOrders.flatMap(order => order.selectedFoods);
 
