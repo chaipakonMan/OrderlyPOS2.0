@@ -203,15 +203,26 @@ export class HomeComponent {
 
   onToggleSelect(food: any) {
     food.selected = !food.selected;
-    this.updateSelectedFoods(food);
+
+    const newFood = { ...food };
+    newFood.quantity = 1;
+    newFood.comment = '';
+
+    this.updateSelectedFoods(newFood);
   }
 
   updateSelectedFoods(food: any) {
-    if(this.selectedFoods.includes(food)){
-      food.quantity++;
-    }else{
+    // Try to find existing item with same name and no comment
+    const existing = this.selectedFoods.find(
+      (f) => f.name === food.name && (!f.comment || f.comment.trim() === '')
+    );
+
+    if (existing) {
+      existing.quantity++;
+    } else {
       this.selectedFoods.push(food);
     }
+
   }
 
   addComment(food: any){
