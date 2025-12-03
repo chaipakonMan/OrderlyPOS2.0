@@ -268,9 +268,22 @@ export class HomeComponent {
     this.selectedCategory = category;
   }
 
+  // added in search term, for filter
+  searchTerm: string = '';
+  
   get filteredFoods(): any[] {
-    if (this.selectedCategory === 'All') return this.foods;
-    return this.foods.filter(food => food.category === this.selectedCategory);
+    let list = this.foods;
+
+    if (this.selectedCategory !== 'All') {
+      list = list.filter(f => f.category === this.selectedCategory);
+    }
+
+    if (this.searchTerm && this.searchTerm.trim() !== '') {
+      const term = this.searchTerm.toLowerCase();
+      list = list.filter(f => f.name.toLowerCase().includes(term));
+    }
+
+    return list;
   }
 
   goToSummary() {
