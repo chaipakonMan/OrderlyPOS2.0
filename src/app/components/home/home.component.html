@@ -1,6 +1,16 @@
 <div class="main-container">
 
 <div class="left-column">
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search items..."
+      class="search-input"
+    />
+  </div>
+
   <div class="filters-container">
     <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'All' }" (click)="setFilter('All')">All</button>
     <button class="filter-button" [ngClass]="{ 'active': selectedCategory === 'Appetizer' }" (click)="setFilter('Appetizer')">Appetizers</button>
@@ -41,7 +51,7 @@
         </tr>
         <tr *ngFor="let food of selectedFoods">
           <td>{{ food.quantity }}</td>
-          <td>{{ food.name }}</td>
+          <td>{{ food.printName }}</td>
           <td>{{ (food.quantity*food.price) }}</td>
           <td>
             {{ food.comment }}

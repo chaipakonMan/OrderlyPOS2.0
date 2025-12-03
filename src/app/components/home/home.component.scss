@@ -216,3 +216,26 @@ td input[type="text"] {
   flex-wrap: nowrap;
   margin-bottom: 16px;
 }
+
+.search-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem; /* spacing below */
+}
+
+.search-input {
+  width: 100%; /* will take full container width, you can tweak */
+  max-width: 300px; /* prevents it from being too long */
+  padding: 0.5rem 1rem; /* comfortable padding */
+  border: 1px solid #ccc; /* subtle border */
+  border-radius: 8px; /* rounded corners */
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  border-color: #4a90e2; /* highlight color */
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3); /* subtle glow */
+}

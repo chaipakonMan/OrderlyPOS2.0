@@ -82,10 +82,6 @@ export class SummaryComponent {
 
   }
   
-  goToHome() {
-    this.router.navigate(['/']);
-  }
-
   async ensureBluetoothPermissions(): Promise<boolean> {
     const perms = [
       'android.permission.BLUETOOTH_CONNECT',
@@ -117,7 +113,7 @@ export class SummaryComponent {
     receipt += '-----------------------------\n';
 
     this.selectedFoods.forEach((item: any, index: number) => {
-    const name = item.name || '';
+    const name = item.printName || '';
     const qty = item.quantity.toString().padStart(3);
     const price = item.price.toFixed(2).padStart(6);
     const total = (item.quantity * item.price).toFixed(2).padStart(7);
@@ -171,12 +167,12 @@ export class SummaryComponent {
         return; // Skip drinks and beers
       }
 
-      if(item.category === 'AddOn' && item.name ==='Corkage fee'){
+      if(item.category === 'AddOn' && item.printName ==='Corkage fee'){
         return; // Skip drinks and beers
       }
 
 
-      const name = item.name || '';
+      const name = item.printName || '';
       const qty = `x ${item.quantity}`;
       const comment = item.comment;
 
@@ -246,16 +242,25 @@ export class SummaryComponent {
     return lines;
   }
 
-  goToSave() {
-    this.router.navigate(['/save'], {
-      state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
-    });
-  }
-
   goBack() {
         this.router.navigate(['/'], {
       state: { selectedFoods: this.selectedFoods, tableNumber: this.tableNumber}
     });
+  }
+  
+  saveOrder() {
+    const order = {
+      tableNumber: this.tableNumber,
+      selectedFoods: this.selectedFoods
+    };
+
+    let savedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+    savedOrders.push(order);
+    localStorage.setItem('orders', JSON.stringify(savedOrders));
+    // reset the home in memory
+    this.tableNumber = '0';
+    this.selectedFoods = [];
+    this.router.navigate(['/']);
   }
 
 }
