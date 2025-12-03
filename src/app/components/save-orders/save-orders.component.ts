@@ -117,7 +117,7 @@ export class SaveOrdersComponent {
     for (const item of allItems) {
       const hasComment = item.comment && item.comment.trim() !== '';
 
-      if (hasComment) {
+      if (hasComment || item.category === 'AddOn') {
         // Keep comment items separate
         mergedItems.push({ ...item });
       } else {
@@ -150,32 +150,6 @@ export class SaveOrdersComponent {
     this.mergeSelections = [];
     this.mergeMode = false;
   }
-
-  // confirmMerge() {
-  //   const selectedIndexes = this.mergeSelections
-  //     .map((selected, index) => selected ? index : -1)
-  //     .filter(index => index !== -1);
-
-  //   if (selectedIndexes.length < 2) return;
-
-  //   const mergedFoods: any[] = [];
-  //   selectedIndexes.forEach(i => {
-  //     mergedFoods.push(...this.orders[i].selectedFoods);
-  //   });
-
-  //   const newOrder = {
-  //     tableNumber: this.mergeTableNumber,
-  //     selectedFoods: mergedFoods
-  //   };
-
-  //   // Remove originals (reverse order to avoid index shift)
-  //   selectedIndexes.sort((a, b) => b - a).forEach(i => this.orders.splice(i, 1));
-
-  //   this.orders.push(newOrder);
-  //   localStorage.setItem('orders', JSON.stringify(this.orders));
-
-  //   this.cancelMerge(); // reset
-  // } 
 
   canMerge(): boolean {
     return this.mergeSelections.filter(x => x).length >= 2;
