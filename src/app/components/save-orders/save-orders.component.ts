@@ -86,4 +86,99 @@ export class SaveOrdersComponent {
     }
   }
 
+  mergeMode: boolean = false;
+  mergeSelections: boolean[] = [];
+  mergeTableNumber: string = '0';
+
+  startMerge() {
+    this.mergeMode = true;
+    this.mergeSelections = this.orders.map(() => false);
+    this.mergeTableNumber = '0';
+  }
+
+  cancelMerge() {
+    this.mergeMode = false;
+    this.mergeSelections = [];
+    this.mergeTableNumber = '0';
+  }
+
+  confirmMerge() {
+    const selectedIndices = this.mergeSelections
+      .map((checked, index) => checked ? index : -1)
+      .filter(index => index !== -1);
+
+    if (selectedIndices.length < 2) return;
+
+    const selectedOrders = selectedIndices.map(index => this.orders[index]);
+    const allItems = selectedOrders.flatMap(order => order.selectedFoods);
+
+    const mergedItems: any[] = [];
+
+    for (const item of allItems) {
+      const hasComment = item.comment && item.comment.trim() !== '';
+
+      if (hasComment) {
+        // Keep comment items separate
+        mergedItems.push({ ...item });
+      } else {
+        // Try to find existing identical item in mergedItems (same name, no comment)
+        const existing = mergedItems.find(
+          i => i.name === item.name && (!i.comment || i.comment.trim() === '')
+        );
+
+        if (existing) {
+          existing.quantity += item.quantity;
+        } else {
+          mergedItems.push({ ...item });
+        }
+      }
+    }
+
+    // Pick the first selected table's number for merged order (or prompt, up to you)
+    const tableNumber = selectedOrders[0].tableNumber;
+
+    const newOrder = { tableNumber, selectedFoods: mergedItems };
+    this.orders.push(newOrder);
+
+    // Remove old orders
+    this.orders = this.orders.filter((_, index) => !selectedIndices.includes(index));
+
+    // Save updated orders
+    localStorage.setItem('orders', JSON.stringify(this.orders));
+
+    // Reset merge UI state
+    this.mergeSelections = [];
+    this.mergeMode = false;
+  }
+
+  // confirmMerge() {
+  //   const selectedIndexes = this.mergeSelections
+  //     .map((selected, index) => selected ? index : -1)
+  //     .filter(index => index !== -1);
+
+  //   if (selectedIndexes.length < 2) return;
+
+  //   const mergedFoods: any[] = [];
+  //   selectedIndexes.forEach(i => {
+  //     mergedFoods.push(...this.orders[i].selectedFoods);
+  //   });
+
+  //   const newOrder = {
+  //     tableNumber: this.mergeTableNumber,
+  //     selectedFoods: mergedFoods
+  //   };
+
+  //   // Remove originals (reverse order to avoid index shift)
+  //   selectedIndexes.sort((a, b) => b - a).forEach(i => this.orders.splice(i, 1));
+
+  //   this.orders.push(newOrder);
+  //   localStorage.setItem('orders', JSON.stringify(this.orders));
+
+  //   this.cancelMerge(); // reset
+  // } 
+
+  canMerge(): boolean {
+    return this.mergeSelections.filter(x => x).length >= 2;
+  }
+
 }

@@ -115,3 +115,16 @@
 .split-section button:last-of-type:hover {
   background-color: #d15360;
 }
+
+.merge-button {
+  background-color: #acf9ff;
+  border: 2px solid #0d567a;
+  color: #06262c;
+  font-weight: bold;
+  padding: 6px 12px;
+  // margin-left: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 8px;
+}
