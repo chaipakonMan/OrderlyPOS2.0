@@ -212,6 +212,12 @@ export class HomeComponent {
   }
 
   updateSelectedFoods(food: any) {
+    // If it's an addon don't combine it.
+    if (food.category === 'AddOn') {
+      this.selectedFoods.push(food);
+      return;
+    }
+
     // Try to find existing item with same name and no comment
     const existing = this.selectedFoods.find(
       (f) => f.name === food.name && (!f.comment || f.comment.trim() === '')
