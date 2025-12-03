@@ -5,30 +5,11 @@
     <button class="done-button" (click)="goToHome()">Home</button>
   </div>
 
-  <!-- Merge Mode Buttons -->
-  <div class="merge-controls" *ngIf="!mergeMode && orders.length > 1">
-    <button class="merge-button" (click)="startMerge()">🧩 Start Merge</button>
-  </div>
-  <div class="merge-controls" *ngIf="mergeMode">
-    <label>
-      New Table Number:
-      <input type="text" [(ngModel)]="mergeTableNumber" />
-    </label>
-    <button (click)="confirmMerge()" [disabled]="!canMerge()">✅ Confirm Merge</button>
-    <button (click)="cancelMerge()">❌ Cancel Merge</button>
-  </div>
-
   <div *ngIf="orders.length === 0" class="empty-state">
     <p>No saved orders found.</p>
   </div>
 
   <div *ngFor="let order of orders; let i = index" class="order-card">
-    <!-- Merge checkbox -->
-    <label *ngIf="mergeMode" class="merge-checkbox">
-      <input type="checkbox" [(ngModel)]="mergeSelections[i]" />
-      Select
-    </label>
-
     <h3>Table #{{ order.tableNumber }}</h3>
 
     <ul class="item-list">
@@ -38,19 +19,19 @@
       </li>
     </ul>
 
-    <div class="order-actions" *ngIf="!mergeMode">
+    <div class="order-actions">
       <button (click)="loadForEdit(order, i)">✏️ Edit</button>
       <button (click)="startSplit(i)" [disabled]="order.selectedFoods.length <= 1">💸 Split</button>
     </div>
 
-    <!-- Split Mode Section -->
+    <!-- This block is only visible if splitModeIndex === i -->
     <div *ngIf="splitModeIndex === i" class="split-section">
       <h4>Select items to split:</h4>
 
-      <label>
-        New Table Number:
-        <input type="text" [(ngModel)]="splitTableNumber" />
-      </label>
+        <label>
+          New Table Number:
+          <input type="text" [(ngModel)]="splitTableNumber" />
+        </label>
 
       <ul class="item-list">
         <li *ngFor="let item of order.selectedFoods; let j = index">
@@ -61,9 +42,10 @@
           </label>
         </li>
       </ul>
-
       <button (click)="saveSplit(order, i)">Split</button>
       <button (click)="cancelSplit()">Cancel</button>
     </div>
+
   </div>
+
 </div>
