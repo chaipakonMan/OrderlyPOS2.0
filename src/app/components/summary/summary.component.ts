@@ -113,7 +113,7 @@ export class SummaryComponent {
     receipt += '-----------------------------\n';
 
     this.selectedFoods.forEach((item: any, index: number) => {
-    const name = item.name || '';
+    const name = item.printName || '';
     const qty = item.quantity.toString().padStart(3);
     const price = item.price.toFixed(2).padStart(6);
     const total = (item.quantity * item.price).toFixed(2).padStart(7);
@@ -167,12 +167,12 @@ export class SummaryComponent {
         return; // Skip drinks and beers
       }
 
-      if(item.category === 'AddOn' && item.name ==='Corkage fee'){
+      if(item.category === 'AddOn' && item.printName ==='Corkage fee'){
         return; // Skip drinks and beers
       }
 
 
-      const name = item.name || '';
+      const name = item.printName || '';
       const qty = `x ${item.quantity}`;
       const comment = item.comment;
 

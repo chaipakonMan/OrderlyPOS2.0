@@ -51,7 +51,7 @@
         </tr>
         <tr *ngFor="let food of selectedFoods">
           <td>{{ food.quantity }}</td>
-          <td>{{ food.name }}</td>
+          <td>{{ food.printName }}</td>
           <td>{{ (food.quantity*food.price) }}</td>
           <td>
             {{ food.comment }}

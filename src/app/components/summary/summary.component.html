@@ -13,7 +13,7 @@
       <ul>
         <li *ngFor="let food of selectedFoods">
           <div class="food-item">
-            <span>{{ food.quantity }} {{ food.name }}</span>
+            <span>{{ food.quantity }} {{ food.printName }}</span>
             <div *ngIf="food.comment">
               <span>&#123; {{ food.comment }} &#125;</span>
             </div>
@@ -33,7 +33,7 @@
       </div>
       <ul>
         <li *ngFor="let food of selectedFoods">
-          {{ food.quantity }} {{ food.name }} ${{ (food.quantity*food.price) }}
+          {{ food.quantity }} {{ food.printName }} ${{ (food.quantity*food.price) }}
         </li>
       </ul>
       <h4>Sub Total: $ {{subTotal | number:'1.2-2' }}</h4>

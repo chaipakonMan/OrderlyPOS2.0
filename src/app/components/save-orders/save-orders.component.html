@@ -33,7 +33,7 @@
 
     <ul class="item-list">
       <li *ngFor="let item of order.selectedFoods">
-        {{ item.quantity }} x {{ item.name }}
+        {{ item.quantity }} x {{ item.printName }}
         <span *ngIf="item.comment"> - <em>{{ item.comment }}</em></span>
       </li>
     </ul>
@@ -56,7 +56,7 @@
         <li *ngFor="let item of order.selectedFoods; let j = index">
           <label>
             <input type="checkbox" [(ngModel)]="splitSelections[j]" />
-            {{ item.quantity }} x {{ item.name }}
+            {{ item.quantity }} x {{ item.printName }}
             <span *ngIf="item.comment"> - <em>{{ item.comment }}</em></span>
           </label>
         </li>
