@@ -27,7 +27,7 @@
 
   <div class="food-cards">
       <div class="food-card" *ngFor="let food of filteredFoods">
-        <app-food-card [food]="food" (toggleSelect)="onToggleSelect(food)"></app-food-card>
+        <app-food-card [food]="food" (toggleSelect)="onToggleSelect($event)"></app-food-card>
       </div>
   </div>
 </div>

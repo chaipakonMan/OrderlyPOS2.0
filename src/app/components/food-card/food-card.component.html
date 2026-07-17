@@ -1,3 +1,8 @@
 <div class="card" [class.selected]="food.selected" (click)="toggleSelection()">
-    <h3>{{ food.name }}</h3>
+        <h3>{{ food.name }}</h3>
+
+        <div *ngIf="food?.allowCustomPrice" class="custom-price" (click)="$event.stopPropagation()">
+            <input type="number" min="0.01" step="0.01" [(ngModel)]="customPrice" placeholder="Amount" />
+            <button (click)="selectWithCustomPrice($event)">Add</button>
+        </div>
 </div>

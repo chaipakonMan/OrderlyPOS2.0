@@ -166,6 +166,7 @@ export class HomeComponent {
     { name: 'Fried Egg', selected: false, category: 'AddOn', price: 1.5, quantity: 1, comment: '', printName: 'Fried Egg' },
     { name: 'Side Fried Rice', selected: false, category: 'AddOn', price: 5, quantity: 1, comment: '', printName: 'Side Fried Rice' },
     { name: 'Corkage fee', selected: false, category: 'AddOn', price: 5, quantity: 1, comment: '', printName: 'Corkage fee' },
+    { name: 'Gift Card', selected: false, category: 'AddOn', price: 0, allowCustomPrice: true, quantity: 1, comment: '', printName: 'Gift Card' },
     { name: 'Thai Iced Tea', selected: false, category: 'Drink', price: 4, quantity: 1, comment: '', printName: 'Thai Iced Tea' },
     { name: 'Thai Iced Coffee', selected: false, category: 'Drink', price: 4, quantity: 1, comment: '', printName: 'Thai Iced Coffee' },
     { name: 'Thai Iced Green Tea', selected: false, category: 'Drink', price: 4, quantity: 1, comment: '', printName: 'Thai Iced Green Tea' },
@@ -200,13 +201,21 @@ export class HomeComponent {
   selectedFoods: any[] = [];
 
   onToggleSelect(food: any) {
-    food.selected = !food.selected;
+    // If the emitted object is the same reference as a menu item (regular click), use the menu item
+    const menuItem = this.foods.find(f => f === food);
 
-    const newFood = { ...food };
-    newFood.quantity = 1;
-    newFood.comment = '';
+    if (menuItem) {
+      menuItem.selected = !menuItem.selected;
+      const newFood = { ...menuItem };
+      newFood.quantity = 1;
+      newFood.comment = '';
+      this.updateSelectedFoods(newFood);
+      return;
+    }
 
-    this.updateSelectedFoods(newFood);
+    // Otherwise it's a custom-emitted object (e.g. Gift Card with custom price)
+    const customFood = { ...food, selected: true, quantity: 1, comment: '' };
+    this.updateSelectedFoods(customFood);
   }
 
   updateSelectedFoods(food: any) {
