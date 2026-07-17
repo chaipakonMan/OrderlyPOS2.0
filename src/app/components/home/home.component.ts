@@ -163,7 +163,7 @@ export class HomeComponent {
     { name: 'Extra Eggplant', selected: false, category: 'AddOn', price: 2, quantity: 1, comment: '', printName: 'Extra Eggplant' },
     { name: 'Extra Rice', selected: false, category: 'AddOn', price: 1, quantity: 1, comment: '', printName: 'Extra Rice' },
     { name: 'Extra Noodle', selected: false, category: 'AddOn', price: 1, quantity: 1, comment: '', printName: 'Extra Noodle' },
-    { name: 'Extra Sauce', selected: false, category: 'AddOn', price: 1, quantity: 1, comment: '', printName: 'Extra Sauce' },
+    { name: 'Extra Sauce', selected: false, category: 'AddOn', price: 0.5, quantity: 1, comment: '', printName: 'Extra Sauce' },
     { name: 'Fried Egg', selected: false, category: 'AddOn', price: 1.5, quantity: 1, comment: '', printName: 'Fried Egg' },
     { name: 'Side Fried Rice', selected: false, category: 'AddOn', price: 5, quantity: 1, comment: '', printName: 'Side Fried Rice' },
     { name: 'Corkage fee', selected: false, category: 'AddOn', price: 5, quantity: 1, comment: '', printName: 'Corkage fee' },
