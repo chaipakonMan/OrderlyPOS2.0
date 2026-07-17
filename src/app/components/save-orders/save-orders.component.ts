@@ -155,4 +155,45 @@ export class SaveOrdersComponent {
     return this.mergeSelections.filter(x => x).length >= 2;
   }
 
+  generateReport() {
+    let totalSales = 0;
+    let totalDrinkSales = 0;
+    let totalAlcoholSales = 0;
+
+    // Loop through all saved orders
+    for (const order of this.orders) {
+      for (const item of order.selectedFoods) {
+        const itemTotal = item.quantity * item.price;
+
+        // Add to total sales
+        totalSales += itemTotal;
+
+        // Add to category totals
+        if (item.category === 'Drink') {
+          totalDrinkSales += itemTotal;
+        } else if (item.category === 'Beer') {
+          totalAlcoholSales += itemTotal;
+        }
+      }
+    }
+
+    // Calculate total food sales (excluding drinks and alcohol)
+    const totalFoodSales = totalSales - totalDrinkSales - totalAlcoholSales;
+
+    // Calculate alcohol percentage of total sales
+    const alcoholPercentage = totalSales > 0 ? (totalAlcoholSales / totalSales) * 100 : 0;
+
+    // Format the report
+    const report = `
+=== SALES REPORT ===
+Total Food Sales: $${totalFoodSales.toFixed(2)}
+Total Drink Sales: $${totalDrinkSales.toFixed(2)}
+Total Alcohol Sales: $${totalAlcoholSales.toFixed(2)}
+Alcohol % to Total Sales: ${alcoholPercentage.toFixed(2)}%
+    `;
+
+    console.log(report);
+    alert(report);
+  }
+
 }

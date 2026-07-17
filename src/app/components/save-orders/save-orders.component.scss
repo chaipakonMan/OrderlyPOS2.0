@@ -59,11 +59,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   margin-bottom: 1rem;
 }
 
 .header-row h2 {
   margin: 0;
+  flex: 1;
+}
+
+.header-row .done-button {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .item-list input[type="checkbox"] {
